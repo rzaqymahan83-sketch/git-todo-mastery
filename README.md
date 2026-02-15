@@ -50,3 +50,22 @@ This repository is being developed step-by-step over 12 days to practice core Py
 11. Exception handling  
 12. Basic OOP + final refactoring
 
+## Current Status (Day 2)
+
+- Interactive command-line menu (1–3 options)
+- User input handling with `input()`
+- Basic string validation (non-empty task title)
+- Simple loop for continuous program execution
+- Improved welcome screen & formatting
+
+## Features
+
+- [ ] Add new tasks with title & optional description
+- [x] Basic command-line menu interface
+- [ ] List all tasks with status & basic info
+- [ ] Mark tasks as completed
+- [ ] Delete tasks
+- [ ] Set priority level for tasks
+- [ ] Persistent storage (save/load tasks using JSON file)
+- [ ] Basic input validation & error messages
+- [ ] Help / usage instructions inside the program

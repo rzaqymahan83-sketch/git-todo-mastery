@@ -89,3 +89,24 @@ This repository is being developed step-by-step over 12 days to practice core Py
 - [ ] Persistent storage (save/load tasks using JSON file)  
 - [ ] Better input validation & friendly error messages  
 - [ ] Help / usage instructions inside the program
+
+## Current Status (Day 4)
+
+- for loop + enumerate for numbered task listing
+- while loop continues to power the main menu
+- New feature: clear all tasks (with confirmation)
+- Basic loop control (break when user exits)
+- Added total task count display
+
+## Features
+
+- [x] Basic command-line menu interface  
+- [x] Add new tasks (title only – stored in memory)  
+- [x] Show all tasks (numbered list with enumerate)  
+- [x] Clear all tasks (with user confirmation)  
+- [ ] Mark tasks as completed  
+- [ ] Delete single task  
+- [ ] Set priority level for tasks  
+- [ ] Persistent storage (save/load tasks using JSON file)  
+- [ ] Better input validation & friendly error messages  
+- [ ] Help / usage instructions inside the program

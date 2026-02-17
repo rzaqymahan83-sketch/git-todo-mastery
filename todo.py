@@ -1,5 +1,5 @@
 APP_NAME = "Todo CLI"
-VERSION = "0.3.0"
+VERSION = "0.4.0"
 AUTHOR = "Mahan"
 
 def show_welcome():
@@ -115,4 +115,88 @@ while True:
 
     print("-" * 50)
 
+
+
+tasks = []
+
+def show_welcome():
+    print("=" * 50)
+    print(f"   {APP_NAME}  v{VERSION}".center(50))
+    print(f"      Built by {AUTHOR}".center(50))
+    print("=" * 50)
+    print()
+
+
+def show_menu():
+    print("\nMain Menu:")
+    print("  1. Add new task")
+    print("  2. Show all tasks")
+    print("  3. Clear all tasks")
+    print("  4. Exit")
+    print()
+
+
+def add_task():
+    title = input("Enter new task title: ").strip()
+
+    if not title:
+        print("× Error: task title cannot be empty!")
+        return
+
+    tasks.append(title)
+    print(f"✓ Task added: '{title}'")
+
+
+def show_tasks():
+    if not tasks:
+        print("\nNo tasks yet. Time to add some!\n")
+        return
+
+    print("\nYour current tasks:")
+    # Use for + enumerate for numbered display
+    for index, task in enumerate(tasks, start=1):
+        print(f"   {index}. {task}")
+    print(f"\nTotal tasks: {len(tasks)}\n")
+
+
+def clear_all_tasks():
+    if not tasks:
+        print("→ No tasks to clear.\n")
+        return
+
+    confirm = input("Are you sure you want to delete all tasks? (yes/no): ").strip().lower()
+
+    if confirm in ["yes", "y"]:
+        tasks.clear()
+        print("✓ All tasks have been cleared!\n")
+    else:
+        print("→ Operation cancelled.\n")
+
+
+# _______________________________________
+# Main Program
+# _______________________________________
+
+show_welcome()
+
+while True:
+    show_menu()
+    chocie = input("Your choice (1-4): ").strip()
     
+    if chocie == "1":
+        add_task()
+
+    elif chocie == "2":
+        show_tasks()
+
+    elif choice == "3":
+        clear_all_tasks()
+    
+    elif chocie == "4":
+        print("\nThank you for using Todo CLI. Goodbye!\n")
+        break
+
+    else:
+        print("× Invalid option! Please enter 1, 2, 3 or 4.")
+
+    print("-" * 50)

@@ -1,5 +1,5 @@
 APP_NAME = "Todo CLI"
-VERSION = "0.4.0"
+VERSION = "0.5.0"
 AUTHOR = "Mahan"
 
 def show_welcome():
@@ -153,7 +153,6 @@ def show_tasks():
         return
 
     print("\nYour current tasks:")
-    # Use for + enumerate for numbered display
     for index, task in enumerate(tasks, start=1):
         print(f"   {index}. {task}")
     print(f"\nTotal tasks: {len(tasks)}\n")
@@ -200,3 +199,116 @@ while True:
         print("× Invalid option! Please enter 1, 2, 3 or 4.")
 
     print("-" * 50)
+
+
+tasks = []
+
+
+def show_welcome():
+    print("=" * 50)
+    print(f"   {APP_NAME}  v{VERSION}".center(50))
+    print(f"      Built by {AUTHOR}".center(50))
+    print("=" * 50)
+    print()
+
+
+def show_menu():
+    print("\nMain Menu:")
+    print("  1. Add new task")
+    print("  2. Show all tasks")
+    print("  3. Delete a task (by number)")
+    print("  4. Clear all tasks")
+    print("  5. Exit")
+    print()
+    
+
+def add_task():
+    title = input("Enter new task title: ").strip()
+
+    if not title:
+        print("× Error: Task title cannot be empty!")
+        return
+
+    # New structure: Dictionary for each task
+    new_task = {
+        "title": title,
+        "done": False
+    }
+
+    tasks.append(new_task)
+    print(f"✓ Task added: '{title}'")
+
+
+def show_tasks():
+    if not tasks:
+        print("\nNo tasks yet. Add your first one!\n")
+        return
+
+    print("\nYour tasks:")
+    for i, task in enumerate(tasks, start=1):
+        status = "[x]" if task["done"] else "[ ]"
+        print(f"  {i}. {status} {task['title']}")
+
+    print(f"\nTotal: {len(tasks)} tasks\n")
+
+
+def delete_task():
+    if not tasks:
+        print("→ No tasks to delete.\n")
+        return
+
+    show_tasks()
+
+    try:
+        num = input("Enter task number to delete: ").strip()
+        index = int(num) - 1
+
+        if 0 <= index < len(tasks):
+            deleted = tasks.pop(index)
+            print(f"✓ Deleted:  '{deleted['title']}'")
+        else:
+            print("× Invalid task number!")
+
+    except ValueError:
+        print("× Please enter a valid number!")
+
+
+def clear_all_tasks():
+    if not tasks:
+        print("→ Nothing to clear.\n")
+        return
+
+    confirm = input("Delete All tasks? (yes/no): ").strip().lower()
+    if confirm in ["yes", "y"]:
+        tasks.clear()
+        print("✓ All tasks cleared!\n")
+    else:
+        print("→ Cancelled.\n")
+
+
+# _______________________________________
+# Main Program
+# _______________________________________
+
+show_welcome()
+
+while True:
+    show_menu()
+    choice = input("Your choice (1-5): ").strip()
+
+    if choice == "1":
+        add_task()
+    elif choice == "2":
+        show_tasks()
+    elif choice == "3":
+        delete_task()
+    elif choice = "4":
+        clear_all_tasks()
+    elif choice == "5":
+        print("\nThank you for using Todo CLI. Goodbye!\n")
+        break
+    else:
+        print("× Invalid choice! Please select 1-5.")
+
+    print("-" * 50)
+    

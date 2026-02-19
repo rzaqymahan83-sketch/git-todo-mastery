@@ -131,3 +131,20 @@ This repository is being developed step-by-step over 12 days to practice core Py
 - [ ] Priority / due date  
 - [ ] Save/load to file  
 - [ ] Better input validation
+
+## Current Status (Day 6)
+
+- Usage of tuple for constant values (priority levels)
+- Tasks dictionary expanded (priority field added)
+- Sorting tasks by priority using sorted() + lambda + dict.get()
+- Input validation loop for priority selection
+
+## Features
+
+- [x] Add task with priority
+- [x] Show tasks sorted by priority
+- [x] Delete single task
+- [x] Clear all tasks
+- [ ] Mark task as done
+- [ ] Edit task
+- [ ] Save / Load from file

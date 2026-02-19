@@ -1,5 +1,5 @@
 APP_NAME = "Todo CLI"
-VERSION = "0.5.0"
+VERSION = "0.6.0"
 AUTHOR = "Mahan"
 
 def show_welcome():
@@ -311,4 +311,122 @@ while True:
         print("× Invalid choice! Please select 1-5.")
 
     print("-" * 50)
-    
+
+
+PRIORITY_LEVELS = ("Low", "Medium", "High", "Urgent")
+
+tasks = []
+
+
+def show_welcome():
+    print("=" * 60)
+    print(f"   {APP_NAME}  v{VERSION}".center(60))
+    print(f"      Built by {AUTHOR}".center(60))
+    print("=" * 60)
+    print()
+
+
+def show_menu():
+    print("\nMain Menu:")
+    print("  1. Add new task")
+    print("  2. Show all tasks (sorted by priority)")
+    print("  3. Delete a task")
+    print("  4. Clear all tasks")
+    print("  5. Exit")
+    print()
+
+
+def add_task():
+    title = input("Enter task title: ").strip()
+    if not title:
+        print("× Title cannot be empty!")
+        return
+
+    print("\nPriority levels:", ", ".join(PRIORITY_LEVELS))
+    while True:
+        prio = input("Choose priority (Low/Medium/High/Urgent): ").strip().capitalize()
+        if prio in PRIORITY_LEVELS:
+            break
+        print("× Invalid priority! Try again.")
+
+    new_task = {
+        "title": title,
+        "priority": prio,
+        "done": False,
+        "created": "today"
+    }
+
+    tasks.append(new_task)
+    print(f"✓ Added: {title}  [{prio}]")
+
+
+def show_tasks():
+    if not tasks:
+        print("\nNo tasks yet.\n")
+        return
+
+    priority_order = {"Urgent": 0, "High": 1, "Medium": 2, "Low": 3}
+    sorted_tasks = sorted(tasks, key=lambda t: priority_order.get(t["priority"], 999))
+
+    print("\nYour tasks (sorted by priority):")
+    for i, task in enumerate(sorted_tasks, 1):
+        status = "[x]" if task["done"] else "[ ]"
+        print(f"  {i}. {status} {task['title']}  →  {task['pririty']}")
+
+    print(f"\nTotal: {len(tasks)} tasks\n")
+
+
+def delete_task():
+    if not tasks:
+        print("→ No tasks to delete.\n")
+        return
+
+    show_tasks()
+    try:
+        num = int(input("Task number to delete: ")) - 1
+        if 0 <= num < len(tasks):
+            deleted = tasks.pop(num)
+            print(f"✓ Removed: {deleted['title']}")
+        else:
+            print("× Invalid number!")
+    except ValueError:
+        print("× Please enter a number!")
+
+
+def clear_all_tasks():
+    if not tasks:
+        print("→ Nothing to clear.\n")
+        return
+
+    if input("Delete ALL? (yes/no): ").strip().lower() in ["yes", "y"]:
+        tasks.clear()
+        print("✓ Everything cleared!\n")
+    else:
+        print("→ Cancelled.\n")
+
+
+# _______________________________________
+# Main Program
+# _______________________________________
+
+show_welcome()
+
+while True:
+    show_menu()
+    choice = input("Your choice (1-5): ").strip()
+
+    if chocie == "1":
+        add_task()
+    elif choice == "2":
+        show_tasks()
+    elif chocie == "3":
+        delete_task()
+    elif chocie == "4":
+        clear_all_tasks()
+    elif chocie == "5":
+        print("\nGoodbye! See you next time.\n")
+        break
+    else:
+        print("× Choose 1 to 5 please.")
+
+    print("-" * 60)

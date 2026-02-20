@@ -148,3 +148,10 @@ This repository is being developed step-by-step over 12 days to practice core Py
 - [ ] Mark task as done
 - [ ] Edit task
 - [ ] Save / Load from file
+
+## Current Status (Day 7)
+
+- Advanced string formatting (f-strings, alignment, centering)
+- Search tasks by keyword in title (case-insensitive)
+- Much nicer console output (borders, alignment, symbols)
+- More consistent user messages and prompts

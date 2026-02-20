@@ -1,5 +1,5 @@
 APP_NAME = "Todo CLI"
-VERSION = "0.6.0"
+VERSION = "0.7.0"
 AUTHOR = "Mahan"
 
 def show_welcome():
@@ -430,3 +430,146 @@ while True:
         print("× Choose 1 to 5 please.")
 
     print("-" * 60)
+
+
+tasks []
+
+
+def show_welcome():
+    print("=" * 70)
+    line = f" {APP_NAME.upper()}  v{VERSION} ".center(68, "=")
+    print(f"={line}=")
+    print(f"      Built bt {AUTHOR}".center(70))
+    print("=" * 70)
+    print()
+
+
+def show_menu():
+    print("\n" + "=" * 30 + " MAIN MENU " + "=" * 30)
+    print("  1. Add new task")
+    print("  2. Show all tasks (sorted by priority)")
+    print("  3. Search tasks by keyword")
+    print("  4. Delete a task")
+    print("  5. Clear all tasks")
+    print("  6. Exit")
+    print("=" * 70)
+
+
+def add_task():
+    title = input("Task title: ").strip()
+    if not title:
+        print("× Title cannot be empty!".center(70))
+        return
+
+    print("\nAvailable priorities:", ", ".join(PRIORITY_LEVELS))
+    while True:
+        prio_input = input("Priority: ").strip().title()
+        if prio_input in PRIORITY_LEVELS:
+            prio = prio_input
+            break
+        print("× Invalid priority. Please try again.")
+
+    new_task = {
+        "title": title,
+        "priority": prio,
+        "done": False,
+        "created": "today"
+    }
+
+    tasks.append(new_task)
+    print(f"\n✓ Task added successfully: {title!r} [{prio}]".center(70))
+
+
+def show_tasks(filtered_tasks=None):
+    to_show = filtered_tasks if filtered_tasks is not None else tasks
+
+    if not to_show:
+        print("\nNo tasks found.\n".center(70))
+        return
+
+    priority_order = {"Urgent":0, "High":1, "Medium":2, "Low":3}
+    sorted_tasks = sorted(to_show, key=lambda t: priority_order.get(t["priority"], 999))
+
+    print("\n" + "-" * 25 + " TASKS " + "-" * 25)
+    for i, task in enumerate(sorted_tasks, 1):
+        mark = "[✔]" if task["done"] else "[ ]"
+        line = f"{i:2d}. {mark} {task['title']:<35}  {task['priority']:>8}"
+        print(line)
+    print("-" * 70)
+    print(f"Total tasks: {len(to_show)}".rjust(70))
+
+
+def search_tasks():
+    if not tasks:
+        print("\nThere are no tasks to search yet.\n")
+        return
+
+    keyword = input("Search keyword (in title): ").strip().lower()
+    if not keyword:
+        print("× Please enter a search term.")
+        return
+
+    results = [t for t in tasks if keyword in t["title"].lower()]
+
+    print(f"\nSearch results for '{keyword}':")
+    show_tasks(results)
+
+
+def delete_task():
+    if not tasks:
+        print("→ No tasks to delete.\n")
+        return
+
+    show_tasks()
+    try:
+        num = input("\nTask number to delete → ").strip()
+        idx = int(num) - 1
+        if 0 <=idx < len(tasks):
+            removed = tasks.pop(idx)
+            print(f"✓ Removed: {removed['title']!r}".center(70))
+        else:
+            print("× Invalid task number."center(70))
+    except ValueError:
+        print("× Please enter a valid number.".center(70))
+
+
+def clear_all_tasks():
+    if not tasks:
+        print("→ No tasks to clear.\n")
+        return
+
+    ans = input("Delete ALL tasks? (yes/no): ").strip().lower()
+    if ans in ("yes", "y"):
+        tasks.clear()
+        print("✓ All tasks have been deleted.".center(70))
+    else:
+        print("→ Operation cancelled.".center(70))
+
+
+# _______________________________________
+# Main Program
+# _______________________________________
+
+show_welcome()
+
+while True:
+    show_menu()
+    chocie = input("→ Your choice (1-6): ").strip()
+
+    if choice == "1":
+        add_task()
+    elif chocie == "2":
+        show_tasks()
+    elif choice == "3":
+        search_tasks()
+    elif choice == "4":
+        delete_task()
+    elif choice == "5":
+        clear_all_tasks()
+    elif choice == "6":
+        print("\n" + "=" * 30 + " GOODBYE " + "=" * 30 + "\n")
+        break
+    else:
+        print("× Please select a number between 1 and 6.".center(70))
+
+    print("-" * 70)

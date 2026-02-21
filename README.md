@@ -155,3 +155,11 @@ This repository is being developed step-by-step over 12 days to practice core Py
 - Search tasks by keyword in title (case-insensitive)
 - Much nicer console output (borders, alignment, symbols)
 - More consistent user messages and prompts
+
+## Current Status (Day 8)
+
+- Heavy use of functions with parameters & return values
+- Separation of concerns: UI, logic, data manipulation separated
+- New feature: mark task as completed (done status)
+- Helper functions: print_header, get_valid_priority, create_task, get_sorted_tasks
+- Cleaner and more maintainable code structure

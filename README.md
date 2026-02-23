@@ -163,3 +163,11 @@ This repository is being developed step-by-step over 12 days to practice core Py
 - New feature: mark task as completed (done status)
 - Helper functions: print_header, get_valid_priority, create_task, get_sorted_tasks
 - Cleaner and more maintainable code structure
+
+## Current Status (Day 9)
+
+- Code split into modules: data.py, ui.py, core.py, todo.py
+- Proper import usage
+- New feature: edit task title
+- Cleaner separation of concerns (data / ui / logic)
+- Exit with Enter or 8 or q

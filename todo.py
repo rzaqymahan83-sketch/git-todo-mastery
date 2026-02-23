@@ -1,5 +1,5 @@
 APP_NAME = "Todo CLI"
-VERSION = "0.8.0"
+VERSION = "0.9.0"
 AUTHOR = "Mahan"
 
 def show_welcome():
@@ -16,38 +16,6 @@ def show_menu():
     print("  2. Show all tasks")
     print("  3. Exit")
     print()
-
-
-# _______________________________________
-# Main Program
-# _______________________________________
-
-show_welcome()
-
-while True:
-    show_menu()
-    choice = input("Your chocie (1-3): ").strip()
-
-    if choice == "1":
-        task = input("New task title: ").strip()
-        if task:
-            print(f"→ Task '{task}' added successfully (currently only displayed)")
-        else:
-            print("× Task title cannot be empty!")
-
-    elif choice == "2":
-        print("\nNo tasks have been added yet.\n")
-    
-    elif choice == "3":
-        print("\nGoodbye! See you in the next session...\n")
-        break
-    
-    else:
-        print("× Invalid choice! Please enter 1, 2 or 3.\n")
-
-    print("-" * 45)
-
-
 
 
 tasks = []
@@ -88,32 +56,6 @@ def show_tasks():
     for i, task in enumerate(tasks, 1):
         print(f"   {i}. {task}")
     print()
-
-
-# _______________________________________
-# Main Program
-# _______________________________________
-
-show_welcome()
-
-while True:
-    show_menu()
-    choice = input("Your choice (1-3): ").strip()
-
-    if choice == "1":
-        add_task()
-
-    elif choice == "2":
-        show_tasks()
-
-    elif choice == "3":
-        print("\nThank you for using Todo CLI. Goodbye!\n")
-        break
-
-    else:
-        print("× Invalid option! Please enter 1, 2 or 3.")
-
-    print("-" * 50)
 
 
 
@@ -170,35 +112,6 @@ def clear_all_tasks():
         print("✓ All tasks have been cleared!\n")
     else:
         print("→ Operation cancelled.\n")
-
-
-# _______________________________________
-# Main Program
-# _______________________________________
-
-show_welcome()
-
-while True:
-    show_menu()
-    chocie = input("Your choice (1-4): ").strip()
-    
-    if chocie == "1":
-        add_task()
-
-    elif chocie == "2":
-        show_tasks()
-
-    elif choice == "3":
-        clear_all_tasks()
-    
-    elif chocie == "4":
-        print("\nThank you for using Todo CLI. Goodbye!\n")
-        break
-
-    else:
-        print("× Invalid option! Please enter 1, 2, 3 or 4.")
-
-    print("-" * 50)
 
 
 tasks = []
@@ -284,33 +197,6 @@ def clear_all_tasks():
         print("✓ All tasks cleared!\n")
     else:
         print("→ Cancelled.\n")
-
-
-# _______________________________________
-# Main Program
-# _______________________________________
-
-show_welcome()
-
-while True:
-    show_menu()
-    choice = input("Your choice (1-5): ").strip()
-
-    if choice == "1":
-        add_task()
-    elif choice == "2":
-        show_tasks()
-    elif choice == "3":
-        delete_task()
-    elif choice == "4":
-        clear_all_tasks()
-    elif choice == "5":
-        print("\nThank you for using Todo CLI. Goodbye!\n")
-        break
-    else:
-        print("× Invalid choice! Please select 1-5.")
-
-    print("-" * 50)
 
 
 PRIORITY_LEVELS = ("Low", "Medium", "High", "Urgent")
@@ -403,33 +289,6 @@ def clear_all_tasks():
         print("✓ Everything cleared!\n")
     else:
         print("→ Cancelled.\n")
-
-
-# _______________________________________
-# Main Program
-# _______________________________________
-
-show_welcome()
-
-while True:
-    show_menu()
-    choice = input("Your choice (1-5): ").strip()
-
-    if chocie == "1":
-        add_task()
-    elif choice == "2":
-        show_tasks()
-    elif chocie == "3":
-        delete_task()
-    elif chocie == "4":
-        clear_all_tasks()
-    elif chocie == "5":
-        print("\nGoodbye! See you next time.\n")
-        break
-    else:
-        print("× Choose 1 to 5 please.")
-
-    print("-" * 60)
 
 tasks = []
 
@@ -543,35 +402,6 @@ def clear_all_tasks():
         print("✓ All tasks have been deleted.".center(70))
     else:
         print("→ Operation cancelled.".center(70))
-
-
-# _______________________________________
-# Main Program
-# _______________________________________
-
-show_welcome()
-
-while True:
-    show_menu()
-    chocie = input("→ Your choice (1-6): ").strip()
-
-    if choice == "1":
-        add_task()
-    elif chocie == "2":
-        show_tasks()
-    elif choice == "3":
-        search_tasks()
-    elif choice == "4":
-        delete_task()
-    elif choice == "5":
-        clear_all_tasks()
-    elif choice == "6":
-        print("\n" + "=" * 30 + " GOODBYE " + "=" * 30 + "\n")
-        break
-    else:
-        print("× Please select a number between 1 and 6.".center(70))
-
-    print("-" * 70)
 
 
 PRIORITY_LEVELS = ("Low", "Medium", "High", "Urgent")
@@ -728,32 +558,34 @@ def clear_all_tasks():
         print("→ Cancelled.")
 
 
-# _______________________________________
-# Main Program
-# _______________________________________
+from ui import show_welcome, show_main_menu, get_choice, show_tasks, show_message
+from data import tasks, get_sorted_tasks
+from core import add_task, mark_as_done, edit_task_title, delete_task, clear_all
 
-show_welcome()
+show_welcome(APP_NAME, VERSION, AUTHOR)
 
 while True:
-    show_menu()
-    choice = input("→ Choice (1-7): ").strip()
+    show_main_menu()
+    choice = get_choice()
 
-    if chocie == "1":
+    if not choice or choice in ("8", "q", "exit"):
+        show_message("\nGoodbye! See you next time.\n", center=False)
+
+    elif choice == "1":
         add_task()
-    elif chocie == "2":
-        show_tasks()
-    elif chocie == "3":
-        search_tasks()
-    elif chocie == "4":
-        mark_task_done()
-    elif chocie == "5":
+    elif choice == "2":
+        show_tasks(get_sorted_tasks())
+    elif choice == "3":
+        show_message("Search feature coming soon...")
+    elif choice == "4":
+        mark_as_done()
+    elif choice == "5":
+        edit_task_title()
+    elif choice == "6":
         delete_task()
-    elif chocie == "6":
-        clear_all_tasks()
-    elif chocie == "7":
-        print_header(" GOODBYE ")
-        break
+    elif choice == "7":
+        clear_all()
     else:
-        print("× Please choose 1 to 7.".center(70))
+        show_message("× Please choose 1-8 or press Enter to exit.")
 
     print("-" * 70)

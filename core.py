@@ -18,7 +18,9 @@ def add_task():
 
     new_task = creat_task(title, prio)
     add_task_to_list(new_task)
-    show_message(f"✓ Added: {title} [{prio}]")
+
+    saved_tasks()
+    show_message(f"✓ Added and saved: {title} [{prio}]")
 
 
 def mark_as_done():
@@ -32,7 +34,8 @@ def mark_as_done():
         num = int(input("Task number to mark done: ")) - 1
         if 0 <= num < len(tasks):
             tasks[num]["done"] = True
-            show_message(f"✓ Marked: {tasks[num]['title']}")
+            save_tasks()
+            show_message(f"✓ Marked and saved: {tasks[num]['title']}")
         else:
             show_message("× Invalid number.")
     except ValueError:
@@ -53,7 +56,8 @@ def edit_task_title():
             new_title = input(f"New title (was: {old_title}): ").strip()
             if new_title:
                 tasks[num]["title"] = new_title
-                show_message(f"✓ Updated: {new_title}")
+                save_tasks()
+                show_message(f"✓ Updated and saved: {new_title}")
             else:
                 show_message("× Title cannot be empty. Edit cancelled.")
         else:
@@ -73,7 +77,8 @@ def delete_task():
         num = int(input("Task numer to delete: ")) - 1
         if 0 <= num < len(tasks):
             removed = tasks.pop(num)
-            show_message(f"✓ Removed: {removed['title']}")
+            save_tasks()
+            show_message(f"✓ Removed and saved: {removed['title']}")
         else:
             show_message("× Invalid number.")
     except ValueError:
@@ -89,6 +94,7 @@ def clear_all():
     ans = input("Delete ALL? (yes/no): ").strip().lower()
     if ans in ("yes", "y"):
         tasks.clear()
-        show_message("✓ All tasks cleared.")
+        save_tasks()
+        show_message("✓ All tasks cleared and saved.")
     else:
         show_message("→ Cancelled.")

@@ -171,3 +171,11 @@ This repository is being developed step-by-step over 12 days to practice core Py
 - New feature: edit task title
 - Cleaner separation of concerns (data / ui / logic)
 - Exit with Enter or 8 or q
+
+## Current Status (Day 10)
+
+- Persistent storage using JSON (`tasks.json`)
+- Load tasks automatically on startup
+- Save tasks on exit
+- Basic error handling for file operations
+- Version bumped to 1.0.0 (first persistent version)

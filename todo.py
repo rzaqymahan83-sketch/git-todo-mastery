@@ -1,5 +1,5 @@
 APP_NAME = "Todo CLI"
-VERSION = "0.9.0"
+VERSION = "1.0.0"
 AUTHOR = "Mahan"
 
 def show_welcome():
@@ -559,8 +559,11 @@ def clear_all_tasks():
 
 
 from ui import show_welcome, show_main_menu, get_choice, show_tasks, show_message
-from data import tasks, get_sorted_tasks
+from data import tasks, get_sorted_tasks, load_tasks, save_tasks
 from core import add_task, mark_as_done, edit_task_title, delete_task, clear_all
+
+
+load_tasks():
 
 show_welcome(APP_NAME, VERSION, AUTHOR)
 
@@ -569,7 +572,9 @@ while True:
     choice = get_choice()
 
     if not choice or choice in ("8", "q", "exit"):
-        show_message("\nGoodbye! See you next time.\n", center=False)
+        save_tasks()
+        show_message("\nGoodbye! Tasks saved.\n", center=False)
+        break
 
     elif choice == "1":
         add_task()
@@ -589,3 +594,5 @@ while True:
         show_message("× Please choose 1-8 or press Enter to exit.")
 
     print("-" * 70)
+    
+    

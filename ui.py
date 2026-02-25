@@ -20,7 +20,8 @@ def show_main_menu():
     print("  5. Edit task title")
     print("  6. Delete a task")
     print("  7. Clear all tasks")
-    print("  8. Exit (or press Enter)")
+    print("  8. View task details.")
+    print("  9. Exit (or press Enter)")
     print("-" * 70)
 
 

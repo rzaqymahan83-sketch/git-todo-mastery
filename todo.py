@@ -571,9 +571,9 @@ while True:
     show_main_menu()
     choice = get_choice()
 
-    if not choice or choice in ("8", "q", "exit"):
+    if not choice or choice in ("9", "q", "exit"):
         save_tasks()
-        show_message("\nGoodbye! Tasks saved.\n", center=False)
+        show_message("\nGoodbye! Your tasks have been saved.\n", center=False)
         break
 
     elif choice == "1":
@@ -590,8 +590,10 @@ while True:
         delete_task()
     elif choice == "7":
         clear_all()
+    elif choice == "8":
+        view_task_details()
     else:
-        show_message("× Please choose 1-8 or press Enter to exit.")
+        show_message("× Please choose 1-9 or press Enter to exit.")
 
     print("-" * 70)
     

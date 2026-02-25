@@ -179,3 +179,10 @@ This repository is being developed step-by-step over 12 days to practice core Py
 - Save tasks on exit
 - Basic error handling for file operations
 - Version bumped to 1.0.0 (first persistent version)
+
+## Current Status (Day 11)
+
+- Comprehensive exception handling (try/except/else/finally)
+- User-friendly error messages for invalid inputs
+- New feature: View detailed information of a single task
+- Better robustness against common errors (ValueError, IndexError, etc.)

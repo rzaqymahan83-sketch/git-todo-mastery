@@ -186,3 +186,41 @@ This repository is being developed step-by-step over 12 days to practice core Py
 - User-friendly error messages for invalid inputs
 - New feature: View detailed information of a single task
 - Better robustness against common errors (ValueError, IndexError, etc.)
+
+## Current Status (Day 12 – Final Version)
+
+- Full OOP refactor: `Task` class + `TodoManager` class
+- Persistent data with JSON (load on start, save on exit & after changes)
+- Comprehensive error handling (try/except for input, index, file, JSON)
+- Clean separation of concerns: UI, data, logic, models
+- Version: **2.0.0** (stable, persistent, object-oriented)
+
+## Learning Journey – 12 Days
+
+| Day | Topic                              | Key Achievements                              |
+|-----|------------------------------------|-----------------------------------------------|
+| 1   | Variables & basic data types       | Project setup + welcome screen                |
+| 2   | Operators & user input             | Interactive menu loop                         |
+| 3   | Conditionals (if/elif/else)        | Menu logic + in-memory task list              |
+| 4   | Loops (for & while)                | Numbered list display + clear all             |
+| 5   | Lists & methods                    | Tasks as list of dicts + delete single task   |
+| 6   | Tuples, Sets, Dictionaries         | Priority system + sorting                     |
+| 7   | Strings & formatting               | Search by keyword + beautiful console UI      |
+| 8   | Functions & parameters             | Code organization + mark as done              |
+| 9   | Modules & imports                  | Split into data/ui/core/todo files            |
+| 10  | File I/O (JSON)                    | Persistent storage (save/load)                |
+| 11  | Exception handling                 | Robust input & error messages + view details  |
+| 12  | OOP Basics + Final Refactor        | `Task` & `TodoManager` classes + clean code   |
+
+## Technologies
+
+- Python 3.8+
+- Standard library only (json, os, datetime)
+- No external dependencies
+
+## How to Run
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/todo-cli-python.git
+   cd todo-cli-python

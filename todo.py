@@ -1,5 +1,5 @@
 APP_NAME = "Todo CLI"
-VERSION = "1.0.0"
+VERSION = "2.0.0"
 AUTHOR = "Mahan"
 
 def show_welcome():
@@ -558,12 +558,10 @@ def clear_all_tasks():
         print("→ Cancelled.")
 
 
-from ui import show_welcome, show_main_menu, get_choice, show_tasks, show_message
-from data import tasks, get_sorted_tasks, load_tasks, save_tasks
-from core import add_task, mark_as_done, edit_task_title, delete_task, clear_all
+from ui import show_welcome, show_main_menu, get_choice, show_tasks, show_message, show_task_details
+from manager import TodoManager
 
-
-load_tasks():
+manager = TodoManager()
 
 show_welcome(APP_NAME, VERSION, AUTHOR)
 
@@ -571,30 +569,89 @@ while True:
     show_main_menu()
     choice = get_choice()
 
-    if not choice or choice in ("9", "q", "exit"):
-        save_tasks()
-        show_message("\nGoodbye! Your tasks have been saved.\n", center=False)
+    if not choice or choice in ("9", "q", "exit", "quit"):
+        manager.save_tasks()
+        show_message("\nGoodbye! All changes saved.\n", center=False)
         break
 
-    elif choice == "1":
-        add_task()
-    elif choice == "2":
-        show_tasks(get_sorted_tasks())
-    elif choice == "3":
-        show_message("Search feature coming soon...")
-    elif choice == "4":
-        mark_as_done()
-    elif choice == "5":
-        edit_task_title()
-    elif choice == "6":
-        delete_task()
-    elif choice == "7":
-        clear_all()
-    elif choice == "8":
-        view_task_details()
-    else:
-        show_message("× Please choose 1-9 or press Enter to exit.")
+    try:
+        ch = choice.strip()
 
-    print("-" * 70)
-    
-    
+        if ch == "1":
+            title = input("Task title: ").strip()
+            if not title:
+                show_message("× Title cannot be empty!")
+                continue
+
+            prio = input("Priority (Low/Medium/High/Urgent): ").strip().title()
+            if prio not in manager.PRIORITY_LEVELS:
+                show_message("× Invalid priority level.")
+                continue
+
+            manager.add_task(title, prio)
+            show_message(f"✓ Task added: {title} [{prio}]")
+
+        elif ch == "2":
+            sorted_tasks = manager.get_sorted_tasks()
+            show_tasks(sorted_tasks)
+
+        elif ch == "3":
+            keyword = input("Search keyword: ").strip().lower()
+            if keyword:
+                results = [t for t in manager.tasks if keyword in t.title.lower()]
+                show_tasks(results)
+            else:
+                show_message("× Please enter a search term.")
+
+        elif ch == "4":
+            num_str = input("Task number to mark as done: ").strip()
+            index = int(num_str) - 1
+            if manager.mark_done(index):
+                show_message("✓ Task marked as done")
+            else:
+                show_message("× Invalid task number")
+
+        elif ch == "5":
+            num_str = input("Task number to edit: ").strip()
+            index = int(num_str) - 1
+            new_title = input("New title: ").strip()
+            if manager.edit_title(index, new_title):
+                show_message("✓ Title updated")
+            else:
+                show_message("× Invalid task number or empty title")
+
+        elif ch == "6":
+            num_str = input("Task number to delete: ").strip()
+            index = int(num_str) - 1
+            removed = manager.delete_task(index)
+            if removed:
+                show_message(f"✓ Deleted: {removed.title}")
+            else:
+                show_message("× Invalid task number")
+
+        elif ch == "7":
+            confirm = input("Delete ALL tasks? (yes/no): ").strip().lower()
+            if confirm in ("yes", "y"):
+                manager.clear_all()
+                show_message("✓ All tasks cleared")
+            else:
+                show_message("→ Cancelled")
+
+        elif ch == "8":
+            num_str = input("Task number for details: ").strip()
+            index = int(num_str) - 1
+            task = manager.view_task(index)
+            if task:
+                show_task_details(task)
+            else:
+                show_message("× Invalid task number")
+
+        else:
+            show_message("× Unknown option. Please choose 1–9 or press Enter to exit.")
+
+    except ValueError:
+        show_message("× Please enter a valid number.")
+    except Exception as e:
+        show_message(f"× An unexpected error occurred: {str(e)}")
+
+    print("─" * 70)
